@@ -128,15 +128,11 @@ module.exports = function(username, callback) {
 
     var $ = cheerio.load(body, { xmlMode: true });
 
-    var items = [];
-
-    $('item').each(function(i, element) {
-      var item = processItem($(element));
-      
-      if (item) {
-        items[i] = item;
-      }
-    });
+    var items = $('item')
+        .toArray()
+        .map(function (element) {
+          return processItem($(element));
+        });
 
     return callback(null, items);
   });
