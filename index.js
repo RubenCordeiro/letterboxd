@@ -87,17 +87,17 @@ function processItem(element) {
     return item;
   }
 
-  var review = '';
-
-  // loop through paragraphs
-  reviewParagraphs.each(function(){
-    var reviewParagraph = $(this).text();
-
-    // only add paragaphs that are the review
-    if (reviewParagraph !== 'This review may contain spoilers.') {
-      review += reviewParagraph + '\n';
-    }
-  });
+  var review = reviewParagraphs
+      .toArray()
+      .map(function(paragraph) {
+        return $(paragraph).text();
+      })
+      .filter(function(paragraph) {
+        return paragraph !== 'This review may contain spoilers.';
+      })
+      .reduce(function(text, paragraph) {
+        return text + paragraph + '\n';
+      });
 
   // tidy up and add review to the item
   item.review = review.trim();
