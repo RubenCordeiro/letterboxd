@@ -3,6 +3,11 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
+const textToScore = {
+  'None': -1.0, '½': 0.5, '★': 1.0, '★½': 1.5, '★★': 2.0, '★★½': 2.5,
+  '★★★': 3.0, '★★★½': 3.5, '★★★★': 4.0, '★★★★½': 4.5, '★★★★★': 5.0,
+};
+
 function processItem(element) {
   var item = {
     date: {
@@ -39,12 +44,7 @@ function processItem(element) {
     rating.text = titleData.substring(ratingStringPosition + 2, endPosition);
   }
 
-  // give a number score for the text that matches
-  var score2Text = {
-    'None': -1.0, '½': 0.5, '★': 1.0, '★½': 1.5, '★★': 2.0, '★★½': 2.5,
-    '★★★': 3.0, '★★★½': 3.5, '★★★★': 4.0, '★★★★½': 4.5, '★★★★★': 5.0,
-  };
-  rating.score = score2Text[rating.text];
+  rating.score = textToScore[rating.text];
   item.rating = rating;
 
   var titleAndYear;
