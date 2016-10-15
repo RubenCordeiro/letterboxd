@@ -3,9 +3,9 @@
 var expect = require('chai').expect;
 var nock = require('nock');
 
-var letterboxd = require('../index.js');
+var letterboxd = require('../lib');
 
-var baseUrl = 'https://letterboxd.com';
+const baseUrl = require('../config/letterboxd').baseUrl;
 
 describe('letterboxd', function () {
     it('should return an error the username is null', function (done) {
