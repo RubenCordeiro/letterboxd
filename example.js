@@ -1,4 +1,4 @@
-var letterboxd = require('./lib/index');
+var letterboxd = require('./lib');
 
 letterboxd('zaccolley', function(error, items){
   if (error) {
